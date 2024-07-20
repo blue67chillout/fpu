@@ -2,7 +2,7 @@ module mul (
     op_a, op_b, p, sNaN_o, qNaN_o, infinity_o, zero_o, subnormal_o, normal_o
 );
    // input reg sNaN, qNaN, infinity, zero, subnormal, normal;
-    input [15:0] op_a,b;
+    input [15:0] op_a,op_b;
     output [15:0]p;
 
     output reg sNaN_o, qNaN_o, infinity_o, zero_o, subnormal_o, normal_o;
