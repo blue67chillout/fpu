@@ -89,7 +89,7 @@ module mul (
         end
         else if((a_infinity | b_infinity) == 1) begin
             if((a_zero | b_zero) == 1) begin
-                p_temp = {p_sign,{5{1'b1}},1'b1,9'h02A}
+                p_temp = {p_sign,{5{1'b1}},1'b1,9'h02A};
                 qNaN_o = 1;
             end
 
