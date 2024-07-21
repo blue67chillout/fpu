@@ -63,7 +63,7 @@ module mul (
             subnormal_o = 1;
         end
 
-        else if (t2Exp > 15) // Infinity
+        else if (t2_exp > 15) // Infinity
           begin
             p_temp = {p_sign, {5{1'b1}}, {10{1'b0}}};
             infinity_o = 1;
