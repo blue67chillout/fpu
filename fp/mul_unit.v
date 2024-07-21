@@ -94,7 +94,7 @@ module mul (
             end
 
             else begin
-                p_temp = {p_sign,{5{1'b1},10'b0}};
+                p_temp = {p_sign,{5{1'b1},10'b0};
                 infinity_o = 1;
             end
         end
