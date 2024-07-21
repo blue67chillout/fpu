@@ -13,8 +13,9 @@ module mul (
     fp_class uut1(op_a, a_sNaN, a_qNaN, a_zero, a_infinity, a_subnormal, a_normal);
     fp_class uut2(op_b, b_sNaN, b_qNaN, b_zero, b_infinity, b_subnormal, b_normal);
 
-    reg p_temp;
+    reg [15:0]p_temp;
     reg p_sign;
+    reg [6:0]p_exp;
 
     reg [10:0]sig_a, sig_b;
     reg [6:0]exp_a,exp_b;
@@ -59,13 +60,13 @@ module mul (
         else if(t2_exp < -14) begin
             p_sig = t_sig >> (-14 - t2_exp);
             p_temp = {p_sign, {5{1'b0}}, p_sig[9:0]}; //subnormal
-            subnormal = 1;
+            subnormal_o = 1;
         end
 
         else if (t2Exp > 15) // Infinity
           begin
             p_temp = {p_sign, {5{1'b1}}, {10{1'b0}}};
-            infinity = 1;
+            infinity_o = 1;
           end
 
         else // Normal
@@ -73,18 +74,18 @@ module mul (
             p_exp = t2_exp + 15;
             p_sig = t_sig;
             p_temp = {p_sign, p_exp[4:0], p_sig[9:0]};
-            normal = 1;
+            normal_o = 1;
           end
       
     end
 
     always @(*) begin
         if((a_sNaN | b_sNaN ) == 1) begin
-            p_temp = (a_sNaN) ? a : b;
+            p_temp = (a_sNaN) ? op_a : op_b;
             sNaN_o = 1;
         end
         else if ((a_qNaN | b_qNaN ) == 1) begin
-            p_temp = (a_qNaN) ? a : b;
+            p_temp = (a_qNaN) ? op_a : op_b;
             qNaN_o = 1;
         end
         else if((a_infinity | b_infinity) == 1) begin
@@ -94,7 +95,7 @@ module mul (
             end
 
             else begin
-                p_temp = {p_sign,{5{1'b1},10'b0};
+                p_temp = {p_sign,{5{1'b1}},10'b0};
                 infinity_o = 1;
             end
         end
