@@ -18,7 +18,7 @@ module fp_class (
   assign zero = exp_zero & mant_zero;
   assign infinity = exp_ones & mant_zero;
   assign subnormal = exp_zero & ~mant_zero;
-  assign normal = ~exp_ones & ~exp_ones;
+  assign normal = ~exp_ones & ~exp_zero;
 
   
 
